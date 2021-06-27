@@ -11,6 +11,12 @@ class Quote extends Model
 {
     public function character(){
 
-        return $this->belongsTo(Quote::class);
+        return $this->belongsTo(Character::class);
     }
+     public function wrongone(){
+         return $this->belongsTo(Character::class);
+     }
+     public function wrongtwo(){
+         return $this->belongsTo(Character::class);
+     }
 }

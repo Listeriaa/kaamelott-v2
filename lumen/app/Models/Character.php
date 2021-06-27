@@ -13,4 +13,14 @@ class Character extends Model
     {
         return $this->hasMany(Quote::class);
     }
+
+    public function wrongones()
+    {
+        return $this->hasMany(Quote::class);
+    }
+
+    public function wrongtwos()
+    {
+        return $this->hasMany(Quote::class);
+    }
 }

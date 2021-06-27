@@ -1,25 +1,30 @@
-let app = {
+const app = {
+
+    characters: {
+        1:'Arthur',
+        2:"Bohort",
+        3:"Gauvain",
+        4:"Guenièvre",
+        5:"Kadoc",
+        6:"Karadoc",
+        7:"Lancelot",
+        8:"Léodagan",
+        9:"Loth",
+        10:"Merlin",
+        11:"Perceval",
+        12:"Séli",
+        13:"Venec",
+        14:"Yvain",
+        15:"Attila",
+        16:"Elias de Kelliwic'h",
+        17:"Le Roi Burgonde"
+     
+    },
     init: function (){
-        let characters = {
-            1:'Arthur',
-            2:"Bohort",
-            3:"Gauvain",
-            4:"Guenièvre",
-            5:"Kadoc",
-            6:"Karadoc",
-            7:"Lancelot",
-            8:"Léodagan",
-            9:"Loth",
-            10:"Merlin",
-            11:"Perceval",
-            12:"Séli",
-            13:"Venec",
-            14:"Yvain"
+        
+        app.getQuotes(app.characters[17], 17);
+       
          
-        }
-        for(let i; i< characters.length ; i++){
-            app.getQuotes(characters[i], i);
-        };
     },
 
     getQuotes: function(name, id){
@@ -52,9 +57,19 @@ let app = {
     }, 
 
     sendQuote: function(string, id){
+        //Je génère 2 mauvaises réponses
+        wrongAnswers = app.getWrongAnswers(id);
+        // je les attribue aux valeurs a envoyer en BDD
+        wrongOne = wrongAnswers[0];
+        
+        wrongTwo = wrongAnswers[1];
+
         let data = {
             sentence:string,
             characterId:id,
+            wrongOneId:wrongOne,
+            wrongTwoId:wrongTwo,
+            
         }
         let myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -83,7 +98,32 @@ let app = {
                     }
                 }
             )
+    },
+
+    getRandomId: function(){
+        //je récupère un id compris entre 1 et 17 (correspondant aux id de chaque caractère.) 
+        min = Math.ceil(1);
+        max = Math.floor(17);
+        return Math.floor(Math.random() * (max - min +1)) + min;
+    
+    },
+
+    getWrongAnswers: function(id){
+        wrongOne = app.getRandomId();
+        wrongTwo = app.getRandomId();
+
+        while(wrongOne === id || wrongTwo === id || wrongOne === wrongTwo){
+            if (wrongOne === id){
+                wrongOne = app.getRandomId();
+            }
+            if (wrongTwo === id || wrongTwo === wrongOne){
+                
+                    wrongTwo = app.getRandomId();
+                
+            }
+        }
+
+       return [wrongOne, wrongTwo];
+
     }
 }
-
-

@@ -22,10 +22,18 @@ $router->post(
 );
 
 $router->get(
-    'hello',
+    'quote/{id}',
     [
-        'as' => 'quote-hello',
-        'uses' => 'QuoteController@hello'
+        'as' => 'quote-load',
+        'uses' => 'QuoteController@load'
+    ]
+);
+
+$router->get(
+    'quote/random',
+    [
+        'as' => 'quote-getRandomQuote',
+        'uses' => 'QuoteController@getRandomQuote'
     ]
 );
 
