@@ -1,0 +1,182 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+#main-container {
+    margin : 0 auto;
+    padding:20px 0;
+    font-family: 'Lato', sans-serif;
+    font-family: 'Russo One', sans-serif;
+    text-align: center;
+    background-image: url("../bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+h1 {
+    padding-top: 20px;
+    text-align: center;
+    font-size: 3em;
+    color: #fff;
+}
+.container-global {
+    font-family: 'Lato', sans-serif;
+    width: 80%;
+    margin : 0 auto;
+    font-size: smaller;
+}
+
+.form-quizz {
+    font-weight:lighter ;
+}
+.question-block,
+ #resultats {
+    background-color: #fff;
+    text-align: left;
+    width: 80%;
+    border: 1px solid grey;
+    border-radius: 10px;
+    box-shadow: 10px 10px 14px 0px rgba(0,0,0,0.75);
+    margin : 20px auto;
+    padding : 10px;
+    
+}
+.ishidden {
+    visibility:hidden ;
+}
+
+h4{
+    padding-bottom: 10px;
+}
+
+#resultats h4 {
+    text-align: center;
+}
+.question-block input[type='radio'] {
+    transform: scale(1.2);
+    margin: 5px;
+    
+    
+}
+form button {
+    border: none;
+    outline: none;
+    border: 1px solid #333;
+    border-radius: 5px;
+    display: block;
+    margin: 20px auto;
+    padding: 20px 40px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s ease-in-out;
+}
+form button:hover {
+    background-color: rgb(19, 19, 19);
+    color:#fff;
+}
+.is-hidden {
+    display: none; 
+}
+.is-shown{
+    display:block;
+}
+/* The Modal (background) */
+.modal {
+    
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left:0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    filter: none;
+    -webkit-filter: none;
+  }
+  .is-blurred {
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+  }
+  /* Modal Content/Box */
+  .modal-content {
+    display :flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fefefe;
+    margin: 15% auto; /*15% from the top and centered */
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+  }
+  .modal-content p {
+    padding: 20px;
+    text-align: center;
+    flex : 1 0 80%;
+  }
+  
+  /* The Close Button */
+  #close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bolder;
+    margin-right: 20px;
+  }
+  
+  #close:hover,
+  #close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+#resultats{
+    text-align: center;
+}
+.echec {
+    animation: echec 0.3s ease-in-out;
+}
+.scale {
+    
+    animation : scale 0.8s ease-out;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(0);
+        
+    }
+    100% {
+        transform: scale(1);
+       
+    }
+}
+
+@keyframes echec {
+    0% {
+        transform: translateX(0px);
+    }
+    33% {
+        transform: translateX(5px);
+    }
+    66% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .question-block,
+     #resultats {
+         width:40%; 
+     }
+     h1 {
+         color: #000;
+     }
+    }
+    

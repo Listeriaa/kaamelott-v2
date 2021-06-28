@@ -69,20 +69,20 @@ class QuoteController extends Controller {
     }
 
     /**
-     * méthode pour récupérer une citation aléatoire
-     *
+     * méthode pour récupérer 10 citations aléatoires
+     * GET /quote/random
      * @return void
      */
-    public function getRandomQuote(){
-        //Je récupère une ligne aléatoire de la table Quote;
-        $quote = Quote::select('*')->inRandomOrder()->limit(1)->get();
+    public function getTenRandomQuotes(){
+
+        //Je récupère 10 lignes aléatoires de la table Quote;
+        $quote = Quote::select('*')->inRandomOrder()->limit(10)->get();
 
                     if (!empty($quote)) {
-                        //je load les data issus de la table character correspondant à ces relations
-                           $quote->load(['character', 'wrongone', 'wrongtwo']);
 
-                            // Return JSON of this list
-                            return $this->sendJsonResponse($quote, 200);
+                        //je load les data issus de la table character correspondant à ces relations
+                        $quote->load(['character', 'wrongone', 'wrongtwo']);
+                        return $this->sendJsonResponse($quote, 200);
                         }
 
     }

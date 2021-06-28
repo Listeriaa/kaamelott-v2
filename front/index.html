@@ -1,15 +1,143 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kaamelott</title>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>Quizz Kaamelott</title>
+		<link rel="stylesheet" href="./css/style.css">
 
-  <script defer src="./assets/API.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+		<script defer src="./js/questions.js"></script>
 
+		<script defer src="./js/API.js"></script>
 
+	</head>
 
-</head>
+	<body>
+		<div id="main-container">
+			<h1>Quizz Kaamelott !</h1>
+			<div class="container-global">
+				<form class="form-quizz">
+					<div class="question-block ">
+						<h4>Quel objet légendaire est recherché par nos héros ?
+						</h4>
+						<div>
+							<input type="radio" id="Clovis" name="q1" value="a">
+							<label for="Clovis">Le Graal</label>
+						</div>
+						<div>
+							<input type="radio" id="Lincoln" name="q1" value="b">
+							<label for="Lincoln">une pilule bleue</label>
+						</div>
+						<div>
+							<input type="radio" id="Bonaparte" name="q1" value="c">
+							<label for="Bonaparte">la réponse D</label>
+						</div>
+					</div>
+					<div class="question-block ">
+						<h4>Qui est à l'origine du "c'est pas faux" ?</h4>
+						<div>
+							<input type="radio" id="date1" name="q2" value="a">
+							<label for="date1">Perceval</label>
+						</div>
+						<div>
+							<input type="radio" id="date2" name="q2" value="b">
+							<label for="date2">Karadoc</label>
+						</div>
+						<div>
+							<input type="radio" id="date3" name="q2" value="c">
+							<label for="date3">Léodagan</label>
+						</div>
+					</div>
+					<div class="question-block ">
+						<h4>Qui a dit : "faut arrêter ces conneries de nord et de sud ! Une fois pour toutes, le nord, suivant
+							                        comment on est tourné, ça change tout !" ?</h4>
+						<div>
+							<input type="radio" id="date4" name="q3" value="a">
+							<label for="date4">Lancelot</label>
+						</div>
+						<div>
+							<input type="radio" id="date5" name="q3" value="b">
+							<label for="date5">Arthur</label>
+						</div>
+						<div>
+							<input type="radio" id="date6" name="q3" value="c">
+							<label for="date6">Perceval</label>
+						</div>
+					</div>
+					<div class="question-block ">
+						<h4>Qui a dit : "une fois j’ai pissé par la fenêtre !" ?</h4>
+						<div>
+							<input type="radio" id="Ljubljana" name="q4" value="a">
+							<label for="Ljubljana">Arthur</label>
+						</div>
+						<div>
+							<input type="radio" id="Belgrade" name="q4" value="b">
+							<label for="Belgrade">Guenièvre</label>
+						</div>
+						<div>
+							<input type="radio" id="Bratislava" name="q4" value="c">
+							<label for="Bratislava">Séli</label>
+						</div>
+					</div>
+					<div class="question-block ">
+						<h4>Qui a dit :"Ça prouve que j'ai de l'ubiquité...De l'humilité ? C'est pas quand il y a des
+							                        infiltrations ?"
+						</h4>
+						<div>
+							<input type="radio" id="m1" name="q5" value="a">
+							<label for="m1">Perceval</label>
+						</div>
+						<div>
+							<input type="radio" id="m2" name="q5" value="b">
+							<label for="m2">Bohort</label>
+						</div>
+						<div>
+							<input type="radio" id="m3" name="q5" value="c">
+							<label for="m3">Karadoc</label>
+						</div>
+					</div>
+					<button type="submit" class="">Validez vos choix !</button>
+				</form>
+				<div id="resultats" class="">
+					<h4>Cliquez sur valider pour voir les résultats.</h4>
+					<p id="aide"></p>
+					<p id="note"></p>
+				</div>
+			</div>
+		</div>
+		<!-- The Modal -->
+		<div
+			class="modal is-hidden">
 
-<body>
+			<!-- Modal content -->
+			<div class="modal-content">
+				<p>Il faut sélectionner une réponse
+				</p>
+				<span id="close">&times;</span>
+			</div>
+
+		</div>
+
+		<template id="empty-question">
+			<div class="question-block">
+				<h4 class="question-title"></h4>
+				<div class="input">
+					<input type="radio"  name="" value="">
+					<label for="answer1"></label>
+				</div>
+				<div class="input">
+					<input type="radio"  name="" value="">
+					<label for="answer2"></label>
+				</div>
+				<div class="input">
+					<input type="radio"  name="" value="">
+					<label for="answer3"></label>
+				</div>
+                <button class="question-validate">Validez votre réponse</button>
+			</div>
+		</template>
+	</body>
+
+</html>
