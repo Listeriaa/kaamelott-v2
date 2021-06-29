@@ -1,5 +1,5 @@
 const api = {
-    goodAnswers : [],
+    
     init: function(){
         
     },
@@ -25,14 +25,11 @@ const api = {
             }
         })
         .then(function(quote){
-            
-            return quote;
-        })
-        .then(function(quote){
             for(let i = 0 ; i<10 ; i++){
                 currentQuote = quote[i];
-                api.goodAnswers[i+1] = currentQuote.character.id;
-                questions.createQuestionElement(i+1, currentQuote.sentence, currentQuote.character, currentQuote.wrongone, currentQuote.wrongtwo);
+                //Je remplis le tableau avec les bonnes réponses pour pouvoir faire le décompte de points
+                score.goodAnswers[i+1] = currentQuote.character.id;
+                questions.createQuestionElement(i+1, currentQuote.sentence, currentQuote.character, currentQuote.wrongone, currentQuote.wrongtwo);                
             }
             
 

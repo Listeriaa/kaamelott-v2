@@ -1,4 +1,6 @@
 const questions = {
+    
+
     createQuestionElement: function(questionNumber, sentence, right, wrongOne, wrongTwo){
         const newQuestionElement  = document.getElementById('empty-question')
                                             .content
@@ -11,15 +13,14 @@ const questions = {
         let randomAnswers = questions.randomizeAnswers(answers);
         //le tableau obtenu est de la forme [[id, nom][id, nom][id, nom]]
         //Je récupère les input et les label
-        console.log(answers);
-        console.log(randomAnswers);
+       
         inputElements = newQuestionElement.querySelectorAll(".input input");
         labelElements = newQuestionElement.querySelectorAll(".input label");
 
         //je veux attribuer sur les input en name le numéro de la question, et en value, le nom du personnage
         //je veux attribuer sur les label en for le numéro de la question, et en textContent le nom du personnage.
         for(let i=0 ; i<=2 ; i++){
-            inputElements[i].setAttribute('name', "question"+questionNumber);
+            inputElements[i].setAttribute('name', "question" + questionNumber);
             inputElements[i].setAttribute('value', randomAnswers[i][0]);
             labelElements[i].setAttribute('for', randomAnswers[i][0]);
             labelElements[i].textContent= randomAnswers[i][1];
@@ -30,7 +31,10 @@ const questions = {
         newQuestionElement.dataset.id = "question"+questionNumber;
         newQuestionElement.querySelector('.question-title').textContent = sentence;
 
-    
+        if(newQuestionElement.dataset.id !== "question1"){
+            newQuestionElement.classList.add("display-none", "ishidden");
+        }
+        questions.bindQuestionEvent(newQuestionElement);
         questions.insertQuestionElements(newQuestionElement);
     },
 
@@ -65,6 +69,44 @@ const questions = {
         }
         return sortedArray;
     }, 
+
+    bindQuestionEvent:function(questionElement){
+        const buttonElement = questionElement.querySelector(".question-validate");
+        
+        buttonElement.addEventListener("click", questions.handleClickButton);
+         
+    },
+
+    toggleDisplayNone:function(element){
+        element.classList.toggle("display-none");
+        element.classList.toggle("ishidden");
+    },
+    handleClickButton: function(evt){
+        evt.preventDefault();
+        const buttonElement = evt.currentTarget;
+        const questionElement = buttonElement.closest(".question-block");
+        const questionName = questionElement.dataset.id;
+        console.log(questionName);
+        const NextQuestionElement = questionElement.nextSibling;
+        questions.toggleDisplayNone(questionElement);
+        questions.toggleDisplayNone(NextQuestionElement);
+
+        score.checkAnswer(question.getInputValue(questionElement));
+      
+    },
+    getInputValue: function(element){
+        const inputGroup = element.getElementsByTagName("input");
+        let inputValue = null;
+        for(input of inputGroup){
+
+            if (input.checked){
+                inputValue = input.value;
+            } 
+        }
+        return inputValue;
+    }
+
+
 
 }
 

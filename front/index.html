@@ -8,9 +8,12 @@
 		<link rel="stylesheet" href="./css/style.css">
 
 		<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-		<script defer src="./js/questions.js"></script>
+		<script defer src="./js/components/score.js"></script>
 
-		<script defer src="./js/API.js"></script>
+		<script defer src="./js/components/questions.js"></script>
+
+		<script defer src="./js/components/API.js"></script>
+		<script defer src="./js/app.js"></script>
 
 	</head>
 
@@ -18,20 +21,13 @@
 		<div id="main-container">
 			<h1>Quizz Kaamelott !</h1>
 			<div class="container-global">
-				<form class="form-quizz">
-	
-					<button type="submit" class="">Validez vos choix !</button>
-				</form>
-				<div id="resultats" class="">
-					<h4>Cliquez sur valider pour voir les résultats.</h4>
-					<p id="aide"></p>
-					<p id="note"></p>
-				</div>
+				<form class="form-quizz"></form>
+
 			</div>
 		</div>
 		<!-- The Modal -->
 		<div
-			class="modal is-hidden">
+			class="modal display-none">
 
 			<!-- Modal content -->
 			<div class="modal-content">
@@ -44,20 +40,23 @@
 
 		<template id="empty-question">
 			<div class="question-block">
-				<h4 class="question-title"></h4>
-				<div class="input">
-					<input type="radio"  name="" value="">
-					<label for="answer1"></label>
+				<div class="question-info">
+					<h4 class="question-title"></h4>
+					<div class="input">
+						<input type="radio" name="" value="">
+						<label for="answer1"></label>
+					</div>
+					<div class="input">
+						<input type="radio" name="" value="">
+						<label for="answer2"></label>
+					</div>
+					<div class="input">
+						<input type="radio" name="" value="">
+						<label for="answer3"></label>
+					</div>
 				</div>
-				<div class="input">
-					<input type="radio"  name="" value="">
-					<label for="answer2"></label>
-				</div>
-				<div class="input">
-					<input type="radio"  name="" value="">
-					<label for="answer3"></label>
-				</div>
-                <button class="question-validate">Validez votre réponse</button>
+				<button class="question-validate">Validez votre réponse</button>
+
 			</div>
 		</template>
 	</body>
