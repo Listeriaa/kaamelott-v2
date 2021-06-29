@@ -74,24 +74,35 @@ const questions = {
         const buttonElement = questionElement.querySelector(".question-validate");
         
         buttonElement.addEventListener("click", questions.handleClickButton);
+      
          
     },
 
     toggleDisplayNone:function(element){
         element.classList.toggle("display-none");
-        element.classList.toggle("ishidden");
     },
     handleClickButton: function(evt){
         evt.preventDefault();
         const buttonElement = evt.currentTarget;
         const questionElement = buttonElement.closest(".question-block");
         const questionName = questionElement.dataset.id;
-        console.log(questionName);
+        
         const NextQuestionElement = questionElement.nextSibling;
-        questions.toggleDisplayNone(questionElement);
-        questions.toggleDisplayNone(NextQuestionElement);
+        
+        
 
-        score.checkAnswer(question.getInputValue(questionElement));
+        
+        if(questions.getInputValue(questionElement) === null){
+            
+            questions.handleEmptyAnswer();
+            
+        } else {
+            questions.toggleDisplayNone(questionElement);
+            questions.toggleDisplayNone(NextQuestionElement);
+            let answer = score.checkAnswer(questions.getInputValue(questionElement));
+            console.log(answer);
+        }
+        
       
     },
     getInputValue: function(element){
@@ -104,6 +115,32 @@ const questions = {
             } 
         }
         return inputValue;
+    },
+
+    handleEmptyAnswer:function(){
+        let mainContainer = document.getElementById('main-container');
+        let close = document.getElementById("close");
+
+        let modal = document.querySelector(".modal");
+        console.log(modal.classList);
+
+        modal.classList.remove("is-hidden");
+        console.log(modal.classList, modal);
+        modal.classList.add("is-shown");
+        mainContainer.classList.toggle("is-blurred");
+
+        close.addEventListener('click', (() => {
+
+            modal.classList.add("is-hidden");
+            modal.classList.remove("is-shown");
+            mainContainer.classList.remove("is-blurred");
+        }));
+
+        window.addEventListener('click', (() => {
+            modal.classList.add("is-hidden");
+            modal.classList.remove("is-shown");
+            mainContainer.classList.remove("is-blurred");
+        }));
     }
 
 

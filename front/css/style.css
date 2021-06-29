@@ -87,7 +87,8 @@ form button:hover {
     background-color: rgb(19, 19, 19);
     color:#fff;
 }
-.display-none {
+
+.is-hidden {
     display: none; 
 }
 .is-shown{
