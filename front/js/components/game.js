@@ -49,9 +49,6 @@ const game = {
 
     reloadGame: function(){
         app.init();
-        let modal = document.querySelector(".modal");
-        let mainContainer = document.querySelector('.main-container');
-        modal.classList.add("is-hidden");
-        mainContainer.classList.remove("is-blurred");
-    }
+        questions.closeModal();
+}
 }

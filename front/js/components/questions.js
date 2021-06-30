@@ -159,8 +159,8 @@ const questions = {
         let modal = document.querySelector(".modal");
         let mainContainer = document.querySelector('.main-container');
        
-        modal.classList.toggle("is-hidden");
-        mainContainer.classList.toggle("is-blurred");
+        modal.classList.add("is-hidden");
+        mainContainer.classList.remove("is-blurred");
              
     }
 }
