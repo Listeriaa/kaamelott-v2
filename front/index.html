@@ -7,8 +7,8 @@
 		<title>Quizz Kaamelott</title>
 		<link rel="stylesheet" href="./css/style.css">
 
-		<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-		<script defer src="./js/components/score.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=PT+Sans&family=Russo+One&display=swap" rel="stylesheet">
+		<script defer src="./js/components/game.js"></script>
 
 		<script defer src="./js/components/questions.js"></script>
 
@@ -18,7 +18,7 @@
 	</head>
 
 	<body>
-		<div id="main-container">
+		<div class="main-container is-blurred">
 			<h1>Quizz Kaamelott !</h1>
 			<div class="container-global">
 				<form class="form-quizz"></form>
@@ -27,32 +27,34 @@
 		</div>
 		<!-- The Modal -->
 		<div
-			class="modal is-hidden">
+			class="modal">
 
 			<!-- Modal content -->
 			<div class="modal-content">
-				<p>Il faut sélectionner une réponse! ☺︎
-				</p>
-				<span id="close">&times;</span>
+				<h2>Bienvenue au royaume de Kaamelott!</h2>
+				<p>Connaissez-vous bien les répliques de la série? Découvrez-le avec 10 questions aléatoires. Les répliques changent à chaque partie!</p>
+				<button class="reload">Je joue!</button>
+		
 			</div>
 
 		</div>
 
 		<template id="empty-question">
 			<div class="question-block">
+				<h2 class="question-title"></h2>
 				<div class="question-info">
-					<h4 class="question-title"></h4>
+					<h3 class="question-sentence"></h3>
 					<div class="input">
 						<input type="radio" name="" value="">
-						<label for="answer1"></label>
+						<label for=""></label>
 					</div>
 					<div class="input">
 						<input type="radio" name="" value="">
-						<label for="answer2"></label>
+						<label for=""></label>
 					</div>
 					<div class="input">
 						<input type="radio" name="" value="">
-						<label for="answer3"></label>
+						<label for=""></label>
 					</div>
 				</div>
 				<button class="question-validate">Validez votre réponse</button>

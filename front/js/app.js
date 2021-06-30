@@ -2,8 +2,10 @@ const app = {
     
     init: function(){
         
-        api.getQuestions();
-
+        const reloadButton = document.querySelector(".reload");
+        reloadButton.addEventListener("click", (()=>{
+            questions.closeModal();
+            api.getQuestions()}));
     }
 }
 

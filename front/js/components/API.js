@@ -28,11 +28,12 @@ const api = {
             for(let i = 0 ; i<10 ; i++){
                 currentQuote = quote[i];
                 //Je remplis le tableau avec les bonnes réponses pour pouvoir faire le décompte de points
-                score.goodAnswers[i+1] = currentQuote.character.id;
+                game.goodAnswers[i+1] = currentQuote.character.id;
                 questions.createQuestionElement(i+1, currentQuote.sentence, currentQuote.character, currentQuote.wrongone, currentQuote.wrongtwo);                
             }
             
-
+            const reloadButton = document.querySelector(".reload");
+            reloadButton.addEventListener("click", game.reloadGame);
         })
     }
 }
