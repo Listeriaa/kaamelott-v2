@@ -13,14 +13,14 @@
     background-image: url("../bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    height: 100%;
 }
 h1 {
     font-family: 'Russo One', sans-serif;
     padding-top: 20px;
     text-align: center;
     font-size: 3em;
-    color: #000;
+    color: #fff;
 }
 h2{
     font-family: 'Russo One', sans-serif;
@@ -177,7 +177,7 @@ form button:hover,
          width:40%; 
      }
      h1 {
-         color: #000;
+         color: #fff;
      }
     }
     
