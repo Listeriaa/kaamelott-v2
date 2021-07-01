@@ -20,26 +20,25 @@ class Cors
         }
 
         //si on veut limiter qu'a certains domaines
-        // $whiteListDomain = [
-        //     'http://localhost',
-        //     'http://www.google.fr',
-        //     'http://0.0.0.0:8080/'
-        // ];
+        $whiteListDomain = [
+            'https://kaamelott.laetitia-dev.com',
+
+        ];
 
         // J'ajoute les en-têtes de réponse de CORS
         $response
-            ->header('Access-Control-Allow-Origin', '*') //sinon on met '*' si on veut rien autoriser
+            ->header('Access-Control-Allow-Origin', 'https://kaamelott.laetitia-dev.com') //sinon on met '*' si on veut rien autoriser
             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE')
             ->header('Access-Control-Allow-Credentials', 'true')
             ->header('Access-Control-Allow-Headers', 'Content-Type');
 
 
-        //$http_origin = $_SERVER['HTTP_ORIGIN'];
+        $http_origin = $_SERVER['HTTP_ORIGIN'];
 
-        // if (in_array( $http_origin, $whiteListDomain)){
-        //     $response->header('Access-Control-Allow-Origin', $http_origin);
-        // }
-        // Je retourne la réponse modifiée
+        if (in_array( $http_origin, $whiteListDomain)){
+            $response->header('Access-Control-Allow-Origin', $http_origin);
+        }
+        
         return $response;
     }
 }

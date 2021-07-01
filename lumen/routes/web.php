@@ -30,7 +30,7 @@ $router->get(
 );
 
 $router->get(
-    'quote/random',
+    '/quote/random',
     [
         'as' => 'quote-getTenRandomQuotes',
         'uses' => 'QuoteController@getTenRandomQuotes'
