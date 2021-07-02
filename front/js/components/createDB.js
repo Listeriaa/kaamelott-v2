@@ -20,12 +20,7 @@ const app = {
         17:"Le Roi Burgonde"
      
     },
-    init: function (){
-        
-        app.getQuotes(app.characters[17], 17);
-       
-         
-    },
+
 
     getQuotes: function(name, id){
         let config = {

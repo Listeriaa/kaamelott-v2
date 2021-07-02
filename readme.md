@@ -14,8 +14,8 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 - front avec Javascript,
 - Consommation de l'API (https://github.com/sin0light/api-kaamelott/) pour créer ma propre base de données avec les datas spécifiques.
 - base de données en MySQL (relation oneToMany)
-
-
+- API rest
+  
 ## Progression
 
 **Réalisés**
@@ -24,10 +24,8 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 - les méthode/route pour récupérer une citation random avec 1 bonne réponse et 2 mauvaises réponses ont été faites.
 - fetch effectif,
 - manipulation du DOM OK.
+- Mise en ligne OK.
 
-**en cours**
-
-- Authentification 
 
 **A faire**
 

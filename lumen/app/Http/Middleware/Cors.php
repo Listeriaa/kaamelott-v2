@@ -28,11 +28,11 @@ class Cors
             'http://127.0.0.1',
             'http://localhost:8080',
             'http://127.0.0.1:8080',
-            'http://kamelott.laetitia-dev.com'
+            'https://kaamelott.laetitia-dev.com'
         ];
         $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
-       
-        if (!in_array($origin, $this->allowOrigin) && !empty($origin)) {
+
+        if (!in_array($origin, $this->allowOrigin) || empty($origin)) {
             return new Response('Forbidden', 403);
         }
         $response
@@ -46,6 +46,5 @@ class Cors
         return $response;
     }
 }
-
 
 
