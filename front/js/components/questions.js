@@ -16,19 +16,19 @@ const questions = {
        
         let inputElements = newQuestionElement.querySelectorAll(".input input");
         let labelElements = newQuestionElement.querySelectorAll(".input label");
+
         let $questionNumberString = "question" + questionNumber;
         //je veux attribuer sur les input en name le numéro de la question, et en value, le nom du personnage
         //je veux attribuer sur les label en for le numéro de la question, et en textContent le nom du personnage.
         for(let i=0 ; i<=2 ; i++){
             inputElements[i].setAttribute('name', $questionNumberString);
             inputElements[i].setAttribute('value', randomAnswers[i][0]);
-            inputElements[i].setAttribute('id', $questionNumberString + "radio"+ randomAnswers[i][0]);
-            labelElements[i].setAttribute('for', $questionNumberString + "radio"+ randomAnswers[i][0]);
+            inputElements[i].setAttribute('id', $questionNumberString + "radio" + randomAnswers[i][0]);
+            labelElements[i].setAttribute('for', $questionNumberString + "radio" + randomAnswers[i][0]);
             labelElements[i].textContent= randomAnswers[i][1];
 
         }
 
-        
         newQuestionElement.dataset.id = questionNumber;
         newQuestionElement.querySelector('.question-sentence').textContent = sentence;
         newQuestionElement.querySelector('.question-title').textContent = "Question n°"+questionNumber;
@@ -47,19 +47,24 @@ const questions = {
 
 
     bindQuestionEvent:function(questionElement){
+
         const buttonElement = questionElement.querySelector(".question-validate");
         
         buttonElement.addEventListener("click", questions.handleClickButton);
       
-         
     },
 
     toggleDisplayNone:function(element){
+
         element.classList.toggle("display-none");
+
     },
+
     handleClickButton: function(evt){
+
         evt.preventDefault();
         const buttonElement = evt.currentTarget;
+
         const questionElement = buttonElement.closest(".question-block");
         
         const NextQuestionElement = questionElement.nextSibling;
@@ -79,35 +84,43 @@ const questions = {
             }, 1500)
         
         } else {
+
             let questionName = questionElement.dataset.id;
+
             questions.toggleDisplayNone(questionElement);
+
             let inputValue = questions.getInputValue(questionElement);
+
             game.checkAnswer(questionName, inputValue);
 
             if (game.checkIfLastQuestion(questionName)){
+
                 questions.addModal();
+
                 let modal = document.querySelector(".modal p");
                 let title = document.querySelector(".modal h2");
+                let results = document.querySelector(".results");
                 let button = document.querySelector(".reload");
+
                 modal.textContent = game.addComment(game.points);
                 title.textContent = "Votre score : " + game.points + "/10";
                 button.textContent = "Je rejoue!";
 
+                game.createGoodAnswers(game.goodAnswers);
 
             } else{
                 questions.toggleDisplayNone(NextQuestionElement);
 
-            };
-       
-
-            
+            }; 
         }
         
-      
     },
     getInputValue: function(element){
+
         const inputGroup = element.getElementsByTagName("input");
+
         let inputValue = null;
+
         for(input of inputGroup){
 
             if (input.checked){
@@ -150,7 +163,6 @@ const questions = {
 
         let mainContainer = document.querySelector('.main-container');
         mainContainer.classList.toggle("is-blurred");
-
 
     },
 

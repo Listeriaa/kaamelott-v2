@@ -19,14 +19,15 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 ## Progression
 
 **Réalisés**
+
 - La base de données a été faite, 
 - les méthode/route pour récupérer une citation random avec 1 bonne réponse et 2 mauvaises réponses ont été faites.
+- fetch effectif,
+- manipulation du DOM OK.
 
 **en cours**
 
-- Travail sur le front à faire :
-  - gestion de la transmission des questions au front,
-  - gestion de l'affichage des blocs questions.
+- Authentification 
 
 **A faire**
 

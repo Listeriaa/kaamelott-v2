@@ -1,8 +1,5 @@
 const api = {
-    
-    init: function(){
-        
-    },
+
     getQuestions: function(){
 
         let config = {
@@ -12,7 +9,7 @@ const api = {
         };
         
         
-        request = fetch('http://0.0.0.0:8080/quote/random', config);
+        request = fetch(app.apiUrl, config);
             
 
         request.then(function(response) {
@@ -26,9 +23,11 @@ const api = {
         })
         .then(function(quote){
             for(let i = 0 ; i<10 ; i++){
+                
                 currentQuote = quote[i];
                 //Je remplis le tableau avec les bonnes réponses pour pouvoir faire le décompte de points
-                game.goodAnswers[i+1] = currentQuote.character.id;
+                game.goodAnswers[i+1] = currentQuote;
+                
                 questions.createQuestionElement(i+1, currentQuote.sentence, currentQuote.character, currentQuote.wrongone, currentQuote.wrongtwo);                
             }
             

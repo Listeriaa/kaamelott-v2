@@ -3,9 +3,13 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Symfony\Component\HttpFoundation\Response;
 
 class Cors
 {
+
+    private $allowOrigin;
+
     /**
      * Send CORS headers in response
      */
@@ -19,26 +23,29 @@ class Cors
             $response = response('', 200);
         }
 
-        //si on veut limiter qu'a certains domaines
-        $whiteListDomain = [
-            'https://kaamelott.laetitia-dev.com',
-
+        $this->allowOrigin = [
+            'http://localhost',
+            'http://127.0.0.1',
+            'http://localhost:8080',
+            'http://127.0.0.1:8080',
+            'http://kamelott.laetitia-dev.com'
         ];
-
-        // J'ajoute les en-têtes de réponse de CORS
+        $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+       
+        if (!in_array($origin, $this->allowOrigin) && !empty($origin)) {
+            return new Response('Forbidden', 403);
+        }
         $response
-            ->header('Access-Control-Allow-Origin', 'https://kaamelott.laetitia-dev.com') //sinon on met '*' si on veut rien autoriser
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE')
+            ->header('Access-Control-Allow-Origin', $origin)
+            ->header('Access-Control-Allow-Methods', 'GET')
             ->header('Access-Control-Allow-Credentials', 'true')
             ->header('Access-Control-Allow-Headers', 'Content-Type');
 
 
-        $http_origin = $_SERVER['HTTP_ORIGIN'];
 
-        if (in_array( $http_origin, $whiteListDomain)){
-            $response->header('Access-Control-Allow-Origin', $http_origin);
-        }
-        
         return $response;
     }
 }
+
+
+

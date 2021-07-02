@@ -5,8 +5,8 @@ const game = {
 
     checkAnswer: function(question, answer){
         //je veux comparer la réponse au tableau de bonnes réponses
-     
-       if(game.goodAnswers[question] == answer){
+       let goodAnswer =  game.goodAnswers[question].character.id;
+       if(goodAnswer == answer){
 
             game.points++;
            return true;
@@ -22,7 +22,9 @@ const game = {
             return "🧀 Le gras, c'est la vie. 🧀";
 
         } else if (finalScore < 10 && finalScore >= 7){
-            return "🤸 J'aimerais bien qu'on commence à me considérer comme tel. 🤸";
+
+            return "🤸 J'aimerais bien qu'on commence à me considérer en tant que tel. 🤸";
+
         }else if (finalScore < 7 && finalScore >= 4){
 
             return "😶 C'est pas faux. 😶";
@@ -46,9 +48,33 @@ const game = {
             return false;
         }
     },
+    /**
+     * 
+     * @param {*} array 
+     */
+    createGoodAnswers:function(array){
+        let results = document.querySelector(".goodanswers");
 
+        array.forEach(element => {
+            //création de la div pour chaque réponse
+            let divElement =  document.createElement("div");
+            results.prepend(divElement);
+            //remplissage avec le texte de la réplique
+            let sentence = document.createElement("p");
+            sentence.textContent = element.sentence;
+            divElement.prepend(sentence);
+
+            //remplissage avec le nom de la bonne réponse et mise en forme
+            let response = document.createElement("p");
+            response.textContent = element.character.name;
+            response.style.color = "#178617";
+            response.style.paddingTop = "0px";
+            response.style.fontWeight = "bolder";
+            divElement.appendChild(response);
+        });
+    },
     reloadGame: function(){
         app.init();
         questions.closeModal();
-}
+    }
 }

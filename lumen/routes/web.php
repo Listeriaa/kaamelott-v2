@@ -14,7 +14,7 @@
 */
 
 $router->post(
-    'quote',
+    'api/quote',
     [
         'as' => 'quote-add',
         'uses' => 'QuoteController@add'
@@ -22,7 +22,7 @@ $router->post(
 );
 
 $router->get(
-    'quote/{id}',
+    'api/quote/{id}',
     [
         'as' => 'quote-load',
         'uses' => 'QuoteController@load'
@@ -30,7 +30,7 @@ $router->get(
 );
 
 $router->get(
-    '/quote/random',
+    'api/quote/random',
     [
         'as' => 'quote-getTenRandomQuotes',
         'uses' => 'QuoteController@getTenRandomQuotes'
