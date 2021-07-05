@@ -76,5 +76,6 @@ const game = {
     reloadGame: function(){
         app.init();
         questions.closeModal();
+        game.points = 0;
     }
 }
