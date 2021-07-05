@@ -94,7 +94,7 @@ const questions = {
             game.checkAnswer(questionName, inputValue);
 
             if (game.checkIfLastQuestion(questionName)){
-
+                game.removeQuestionElement();
                 questions.addModal();
 
                 let modal = document.querySelector(".modal p");

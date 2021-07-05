@@ -1,7 +1,7 @@
 const game = {
     points:0,
     goodAnswers: [],
-    
+ 
 
     checkAnswer: function(question, answer){
         //je veux comparer la réponse au tableau de bonnes réponses
@@ -74,8 +74,18 @@ const game = {
         });
     },
     reloadGame: function(){
-        app.init();
-        questions.closeModal();
+ 
+        game.removeQuestionElement();
         game.points = 0;
+    }, 
+
+    removeQuestionElement: function(){
+
+        let questionElements = document.querySelectorAll(".question-block");
+        let formElement = document.querySelector(".form-quizz");
+        questionElements.forEach(element => { 
+            formElement.removeChild(element);            
+        });
+    
     }
 }

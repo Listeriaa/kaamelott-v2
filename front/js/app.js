@@ -7,7 +7,9 @@ const app = {
         
         reloadButton.addEventListener("click", (()=>{
             questions.closeModal();
-            api.getQuestions()}));
+            
+            api.getQuestions()}
+        ));
     }
 }
 
