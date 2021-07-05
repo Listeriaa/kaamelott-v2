@@ -30,3 +30,7 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 **A faire**
 
 - Récupération des fichiers sons correspondant aux citations.
+
+## A améliorer
+
+Il faut que je commit plus souvent :/
