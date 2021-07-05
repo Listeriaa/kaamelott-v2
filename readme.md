@@ -2,6 +2,8 @@
 
 **Connaissez-vous bien Kaamelott? Relevez le challenge en vous mesurant aux répliques les plus cultes de la série et devinez qui en est l'auteur!**
 
+Visible en ligne ici (https://kaamelott.laetitia-dev.com) 
+
 Après une première version très basique, je retravaille ce projet avec consommation d'une API publique pour stocker les questions en base de données.
 
 Les questions seront ensuite récupérées de manière random en front, afin d'avoir un quizz différent à chaque rechargement.
@@ -29,6 +31,7 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 
 **A faire**
 
+- Ajout des photos des personnages.
 - Récupération des fichiers sons correspondant aux citations.
 
 ## A améliorer
