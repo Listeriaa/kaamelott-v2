@@ -1,5 +1,7 @@
 # Quizz Kaamelott V2
 
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
+
 **Connaissez-vous bien Kaamelott? Relevez le challenge en vous mesurant aux répliques les plus cultes de la série et devinez qui en est l'auteur!**
 
 Visible en ligne ici (https://kaamelott.laetitia-dev.com) 
@@ -31,6 +33,7 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 
 **A faire**
 
+- Affichage du résultat à chaque validation de citation.
 - Ajout des photos des personnages.
 - Récupération des fichiers sons correspondant aux citations.
 
