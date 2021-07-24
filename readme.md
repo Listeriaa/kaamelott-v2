@@ -34,7 +34,6 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 
 **A faire**
 
-- Affichage du résultat à chaque validation de citation.
 - Ajout des photos des personnages.
 - Récupération des fichiers sons correspondant aux citations.
 
