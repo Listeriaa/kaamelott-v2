@@ -29,7 +29,8 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 - fetch effectif,
 - manipulation du DOM OK.
 - Mise en ligne OK.
-
+- Juillet : J'ai retravaillé l'affichage des réponses à chaque soumission de réponse.
+- Juillet : J'ai amélioré le random des propositions de réponses car je n'étais pas satisfaite de ma première solution.
 
 **A faire**
 

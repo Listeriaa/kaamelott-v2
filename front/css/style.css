@@ -110,6 +110,10 @@ form button:hover,
     background-color: rgb(236, 14, 14);
     color:#fff; 
 }
+.win:hover{
+    background-color: rgb(43, 134, 0);
+    color:#fff;
+}
 .is-hidden, 
 .display-none {
     display: none; 

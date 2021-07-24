@@ -24,7 +24,7 @@ class QuoteController extends Controller {
             $newQuote->character_id = $request->characterId;
             $newQuote->wrongone_id = $request->wrongOneId;
             $newQuote->wrongtwo_id = $request->wrongTwoId;
-
+            
             try{
                 $newQuote->save();
 

@@ -36,7 +36,7 @@ class Cors
             return new Response('Forbidden', 403);
         }
         $response
-            ->header('Access-Control-Allow-Origin', $origin)
+             ->header('Access-Control-Allow-Origin', $origin)
             ->header('Access-Control-Allow-Methods', 'GET')
             ->header('Access-Control-Allow-Credentials', 'true')
             ->header('Access-Control-Allow-Headers', 'Content-Type');

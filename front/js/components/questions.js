@@ -87,11 +87,9 @@ const questions = {
 
             let questionName = questionElement.dataset.id;
 
-            questions.toggleDisplayNone(questionElement);
-
             let inputValue = questions.getInputValue(questionElement);
 
-            game.checkAnswer(questionName, inputValue);
+            let answer = game.checkAnswer(questionName, inputValue);
 
             if (game.checkIfLastQuestion(questionName)){
                 game.removeQuestionElement();
@@ -109,12 +107,50 @@ const questions = {
                 game.createGoodAnswers(game.goodAnswers);
 
             } else{
-                questions.toggleDisplayNone(NextQuestionElement);
+                answer ? null : questionElement.closest('.question-block').classList.add('echec');
+                if (answer){
+                    buttonElement.textContent = "Bravo! Cliquez pour la question suivante.";
+                    buttonElement.classList.add('win');
+                } else {
+                    buttonElement.textContent = "Prochaine question";
+                    buttonElement.classList.add('warning');
+
+                }
+                questions.showGoodAnswer(questionElement, questionName);
+
+
+                buttonElement.addEventListener('click', (() => {
+                    questions.toggleDisplayNone(questionElement);
+
+                    questions.toggleDisplayNone(NextQuestionElement);
+                }));
+
+
 
             }; 
         }
         
     },
+    showGoodAnswer:function(element, questionName){
+        console.log(game.goodAnswers);
+
+        let inputArray = element.getElementsByTagName("input");
+        for (element of inputArray) {
+            let inputValue = element.value;
+
+            let response = game.checkAnswer(questionName, inputValue);
+            if (response == true){
+                element.closest('div').style.color="#178617";
+                element.closest('div').style.fontWeight="800";
+
+            } else {
+                element.closest('div').style.color="#ec0e0e";
+                element.closest('div').style.fontWeight="800";
+
+            }
+        };
+    },
+
     getInputValue: function(element){
 
         const inputGroup = element.getElementsByTagName("input");
@@ -137,9 +173,11 @@ const questions = {
         for (const character of array) {
             idArray.push(character.id);
         }
-        //Je mélange ces id avec la fonction reverse.
-        idArray.reverse();
-        
+        //Je mélange ces id avec la fonction reverse et random
+        for (let i = idArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [idArray[i], idArray[j]] = [idArray[j], idArray[i]];
+        } // eslint-disable-line no-param-reassign
         //je crée un objet vide qui contiendra les id random avec les noms associés
         let sortedArray=[];
         //je remplis ce tableau avec les nom des personnages correspondants qui se trouvent dans la variable array
@@ -155,7 +193,7 @@ const questions = {
             }
         }
         return sortedArray;
-    }, 
+    },
 
     addModal:function(){
         let modal = document.querySelector(".modal");

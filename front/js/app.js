@@ -1,5 +1,5 @@
 const app = {
-    apiUrl:'http://0.0.0.0:8080/api/quote/random',
+    apiUrl:'https://api.kaamelott.laetitia-dev.com/api/quote/random',
 
     init: function(){
         

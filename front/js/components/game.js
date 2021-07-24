@@ -6,12 +6,14 @@ const game = {
     checkAnswer: function(question, answer){
         //je veux comparer la réponse au tableau de bonnes réponses
        let goodAnswer =  game.goodAnswers[question].character.id;
+       console.log(goodAnswer);
        if(goodAnswer == answer){
 
             game.points++;
            return true;
 
        } else {
+
            return false;
        }
     }, 
@@ -62,7 +64,7 @@ const game = {
             //remplissage avec le texte de la réplique
             let sentence = document.createElement("p");
             sentence.textContent = element.sentence;
-            divElement.prepend(sentence);
+            divElement.append(sentence);
 
             //remplissage avec le nom de la bonne réponse et mise en forme
             let response = document.createElement("p");
