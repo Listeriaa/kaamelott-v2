@@ -21,10 +21,10 @@ const questions = {
         //je veux attribuer sur les input en name le numéro de la question, et en value, le nom du personnage
         //je veux attribuer sur les label en for le numéro de la question, et en textContent le nom du personnage.
         for(let i=0 ; i<=2 ; i++){
-            inputElements[i].setAttribute('name', $questionNumberString);
-            inputElements[i].setAttribute('value', randomAnswers[i][0]);
-            inputElements[i].setAttribute('id', $questionNumberString + "radio" + randomAnswers[i][0]);
-            labelElements[i].setAttribute('for', $questionNumberString + "radio" + randomAnswers[i][0]);
+            inputElements[i].name = $questionNumberString;
+            inputElements[i].value = randomAnswers[i][0];
+            inputElements[i].id = `id${$questionNumberString}radio${randomAnswers[i][0]}`;
+            inputElements[i].for = `id${$questionNumberString}radio${randomAnswers[i][0]}`;
             labelElements[i].textContent= randomAnswers[i][1];
 
         }
