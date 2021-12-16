@@ -168,7 +168,7 @@ const questions = {
 
     randomizeAnswers:function(array){
         //je crée un tableau vide pour récupérer les id de chaque réponse
-        
+        console.log("array de base:", array);
         let idArray = [];
         for (const character of array) {
             idArray.push(character.id);

@@ -1,5 +1,6 @@
 const app = {
-    apiUrl:'https://api.kaamelott.laetitia-dev.com/api/quote/random',
+    //apiUrl:'https://api.kaamelott.laetitia-dev.com/api/quote/random',
+    apiUrl:'http://localhost:8080/api/quote/random',
 
     init: function(){
         
@@ -8,8 +9,8 @@ const app = {
         reloadButton.addEventListener("click", (()=>{
             questions.closeModal();
             
-            api.getQuestions()}
-        ));
+            api.getQuestions()
+        }));
     }
 }
 

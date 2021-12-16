@@ -5,7 +5,7 @@ const game = {
 
     checkAnswer: function(question, answer){
         //je veux comparer la réponse au tableau de bonnes réponses
-       let goodAnswer =  game.goodAnswers[question].character.id;
+       let goodAnswer =  game.goodAnswers[question -1]
        console.log(goodAnswer);
        if(goodAnswer == answer){
 

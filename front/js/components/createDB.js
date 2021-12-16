@@ -60,10 +60,10 @@ const app = {
         wrongTwo = wrongAnswers[1];
 
         let data = {
-            sentence:string,
-            characterId:id,
-            wrongOneId:wrongOne,
-            wrongTwoId:wrongTwo,
+            sentence : string,
+            characterId : id,
+            wrongOneId : wrongOne,
+            wrongTwoId : wrongTwo,
             
         }
         let myHeaders = new Headers();
@@ -74,18 +74,14 @@ const app = {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',
-                // On ajoute les headers dans les options
                 headers: myHeaders,
-                // On ajoute les données, encodée en JSON, dans le corps de la requête
                 body: JSON.stringify(data)
             };
 
             fetch('http://0.0.0.0:8080/quote', fetchOptions)
             .then(
                 function(response) {
-                    console.log(response);
-                    // console.log(response);
-                    // Si HTTP status code à 201 => OK
+
                     if (response.status == 201){
                         console.log('ok');
                     }else{
@@ -95,25 +91,23 @@ const app = {
             )
     },
 
-    getRandomId: function(){
-        //je récupère un id compris entre 1 et 17 (correspondant aux id de chaque caractère.) 
-        min = Math.ceil(1);
-        max = Math.floor(17);
-        return Math.floor(Math.random() * (max - min +1)) + min;
+    getRandomId: function(min, max){
+       
+        return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) +1)) + min;
     
     },
 
     getWrongAnswers: function(id){
-        wrongOne = app.getRandomId();
-        wrongTwo = app.getRandomId();
+        wrongOne = app.getRandomId(1, 17);
+        wrongTwo = app.getRandomId(1, 17);
 
         while(wrongOne === id || wrongTwo === id || wrongOne === wrongTwo){
             if (wrongOne === id){
-                wrongOne = app.getRandomId();
+                wrongOne = app.getRandomId(1, 17);
             }
             if (wrongTwo === id || wrongTwo === wrongOne){
                 
-                    wrongTwo = app.getRandomId();
+                    wrongTwo = app.getRandomId(1, 17);
                 
             }
         }
