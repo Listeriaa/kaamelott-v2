@@ -17,14 +17,14 @@ const api = {
 
             quotes.forEach((quote, i) => {
                 console.log('quote dans le foreach:',quote);
-                questions.createQuestionElement(i+1, quote.sentence, quote.character, quote.wrongone, quote.wrongtwo);
+                questions.createQuestionElement(i+1, quote);
             })            
  
             const reloadButton = document.querySelector(".reload");
             reloadButton.addEventListener("click", game.reloadGame);
         }
         catch(err) {
-            alert('il y a un problème', err);
+            console.log('il y a un problème', err);
 
         }
     }
