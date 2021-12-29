@@ -6,7 +6,7 @@ const game = {
     checkAnswer: function(question, answer){
         //je veux comparer la réponse au tableau de bonnes réponses
        let goodAnswer =  game.goodAnswers[question].character.id;
-       console.log(goodAnswer);
+       
        if(goodAnswer == answer){
 
             game.points++;

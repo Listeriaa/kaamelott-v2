@@ -1,14 +1,18 @@
+
 const questions = {
     
 
-    createQuestionElement: function(questionNumber, sentence, right, wrongOne, wrongTwo){
+    createQuestionElement: function(questionNumber, quote){
         const newQuestionElement  = document.getElementById('empty-question')
                                             .content
                                             .cloneNode(true)
                                             .querySelector('.question-block');
 
+        console.log("dans createElement",quote);
+        const {character, wrongone, wrongtwo}= quote;
+        console.log(character, wrongone, wrongtwo)
         //cette fonction me permet de mélanger l'ordre de la bonne réponse (qui par défaut, arrive en premier)
-        let answers = [right, wrongOne, wrongTwo];
+        let answers = [character, wrongone, wrongtwo];
         
         let randomAnswers = questions.randomizeAnswers(answers);
         //le tableau obtenu est de la forme [[id, nom][id, nom][id, nom]]
@@ -21,16 +25,16 @@ const questions = {
         //je veux attribuer sur les input en name le numéro de la question, et en value, le nom du personnage
         //je veux attribuer sur les label en for le numéro de la question, et en textContent le nom du personnage.
         for(let i=0 ; i<=2 ; i++){
-            inputElements[i].setAttribute('name', $questionNumberString);
-            inputElements[i].setAttribute('value', randomAnswers[i][0]);
-            inputElements[i].setAttribute('id', $questionNumberString + "radio" + randomAnswers[i][0]);
-            labelElements[i].setAttribute('for', $questionNumberString + "radio" + randomAnswers[i][0]);
+            inputElements[i].name = $questionNumberString;
+            inputElements[i].value = randomAnswers[i][0];
+            inputElements[i].id = `id${$questionNumberString}radio${randomAnswers[i][0]}`;
+            inputElements[i].for = `id${$questionNumberString}radio${randomAnswers[i][0]}`;
             labelElements[i].textContent= randomAnswers[i][1];
 
         }
 
         newQuestionElement.dataset.id = questionNumber;
-        newQuestionElement.querySelector('.question-sentence').textContent = sentence;
+        newQuestionElement.querySelector('.question-sentence').textContent = character.sentence;
         newQuestionElement.querySelector('.question-title').textContent = "Question n°"+questionNumber;
 
         if(newQuestionElement.dataset.id !== "1"){
@@ -168,7 +172,7 @@ const questions = {
 
     randomizeAnswers:function(array){
         //je crée un tableau vide pour récupérer les id de chaque réponse
-        
+        console.log("array de base:", array);
         let idArray = [];
         for (const character of array) {
             idArray.push(character.id);
