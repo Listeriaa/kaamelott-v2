@@ -82,10 +82,9 @@ const questions = {
         
         } else {
 
-            let questionName = questionElement.dataset.id;
+            let questionName = questionElement.id;
 
             let inputValue = questions.getInputValue(questionElement);
-            console.log(inputValue);
             let answer = game.checkAnswer(questionName, inputValue);
 
             if (game.checkIfLastQuestion(questionName)){
