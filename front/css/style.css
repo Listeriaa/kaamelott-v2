@@ -75,10 +75,11 @@ label{
 }
 .question-block input[type='radio'] {
     transform: scale(1.2);
-    
+    display:block;
+    margin : 5px auto;
    
 }
-.input {
+.proposal {
     text-align: center;
     
     padding:15px;

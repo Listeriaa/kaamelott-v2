@@ -3,60 +3,53 @@ const questions = {
     
 
     createQuestionElement: function(questionNumber, quote){
+
+        const formQuizz = document.querySelector(".form-quizz");
+
         const newQuestionElement  = document.getElementById('empty-question')
                                             .content
                                             .cloneNode(true)
                                             .querySelector('.question-block');
 
-        console.log("dans createElement",quote);
-        const {character, wrongone, wrongtwo}= quote;
-        console.log(character, wrongone, wrongtwo)
-        //cette fonction me permet de mélanger l'ordre de la bonne réponse (qui par défaut, arrive en premier)
-        let answers = [character, wrongone, wrongtwo];
+ 
+        const {character, wrongone, wrongtwo} = quote;
+
         
-        let randomAnswers = questions.randomizeAnswers(answers);
-        //le tableau obtenu est de la forme [[id, nom][id, nom][id, nom]]
-        //Je récupère les input et les label
+        let randomAnswers = questions.randomizeAnswers([character, wrongone, wrongtwo]);
+  
        
-        let inputElements = newQuestionElement.querySelectorAll(".input input");
-        let labelElements = newQuestionElement.querySelectorAll(".input label");
+        let inputElements = newQuestionElement.querySelectorAll("input");
+        let labelElements = newQuestionElement.querySelectorAll("label");
+        console.log(inputElements);
+        console.log(labelElements);
 
-        let $questionNumberString = "question" + questionNumber;
-        //je veux attribuer sur les input en name le numéro de la question, et en value, le nom du personnage
-        //je veux attribuer sur les label en for le numéro de la question, et en textContent le nom du personnage.
-        for(let i=0 ; i<=2 ; i++){
-            inputElements[i].name = $questionNumberString;
-            inputElements[i].value = randomAnswers[i][0];
-            inputElements[i].id = `id${$questionNumberString}radio${randomAnswers[i][0]}`;
-            inputElements[i].for = `id${$questionNumberString}radio${randomAnswers[i][0]}`;
-            labelElements[i].textContent= randomAnswers[i][1];
+        let questionNumberString = "question" + questionNumber;
 
-        }
+        randomAnswers.forEach((item, id) => {
 
-        newQuestionElement.dataset.id = questionNumber;
+            inputElements[id].name = questionNumberString;
+            inputElements[id].value = item.id;
+            inputElements[id].id = `${questionNumberString}radio${item.id}`;
+            labelElements[id].setAttribute("for", `${questionNumberString}radio${item.id}`);
+            labelElements[id].textContent= item.name;
+
+        })
+
+
+        newQuestionElement.id = questionNumber;
         newQuestionElement.querySelector('.question-sentence').textContent = character.sentence;
         newQuestionElement.querySelector('.question-title').textContent = "Question n°"+questionNumber;
 
-        if(newQuestionElement.dataset.id !== "1"){
+        if(newQuestionElement.id !== "1"){
             newQuestionElement.classList.add("display-none");
         }
-        questions.bindQuestionEvent(newQuestionElement);
-        questions.insertQuestionElements(newQuestionElement);
+
+        newQuestionElement.querySelector('.question-validate').addEventListener("click", questions.handleClickButton);
+
+        formQuizz.append(newQuestionElement);
+
     },
 
-    insertQuestionElements:function(questionElement){
-        let formQuizz = document.querySelector(".form-quizz");
-        formQuizz.append(questionElement);
-    },
-
-
-    bindQuestionEvent:function(questionElement){
-
-        const buttonElement = questionElement.querySelector(".question-validate");
-        
-        buttonElement.addEventListener("click", questions.handleClickButton);
-      
-    },
 
     toggleDisplayNone:function(element){
 
@@ -92,7 +85,7 @@ const questions = {
             let questionName = questionElement.dataset.id;
 
             let inputValue = questions.getInputValue(questionElement);
-
+            console.log(inputValue);
             let answer = game.checkAnswer(questionName, inputValue);
 
             if (game.checkIfLastQuestion(questionName)){
@@ -172,31 +165,15 @@ const questions = {
 
     randomizeAnswers:function(array){
         //je crée un tableau vide pour récupérer les id de chaque réponse
-        console.log("array de base:", array);
         let idArray = [];
-        for (const character of array) {
-            idArray.push(character.id);
-        }
-        //Je mélange ces id avec la fonction reverse et random
-        for (let i = idArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [idArray[i], idArray[j]] = [idArray[j], idArray[i]];
-        } // eslint-disable-line no-param-reassign
-        //je crée un objet vide qui contiendra les id random avec les noms associés
-        let sortedArray=[];
-        //je remplis ce tableau avec les nom des personnages correspondants qui se trouvent dans la variable array
-        for (const idRandom of idArray) {
-            for (const character of array) {
-                
-                if(idRandom === character.id){
 
-                    sortedArray.push([idRandom, character.name]);
-                    
-                   break;
-                }
-            }
-        }
-        return sortedArray;
+        // Durstenfeld shuffle 
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        } // eslint-disable-line no-param-reassign
+
+        return array;
     },
 
     addModal:function(){
