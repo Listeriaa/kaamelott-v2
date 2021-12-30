@@ -77,8 +77,21 @@ label{
     transform: scale(1.2);
     display:block;
     margin : 5px auto;
-   
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+  
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+
 }
+
+.question-block input[type='radio']:checked {
+    border: 6px solid black;
+  }
 .proposal {
     text-align: center;
     
@@ -164,7 +177,7 @@ form button:hover,
 
 @keyframes echec {
     0% {
-        transform: translateX(0px);
+        transform: translateX(0);
     }
     33% {
         transform: translateX(5px);
@@ -173,7 +186,7 @@ form button:hover,
         transform: translateX(-5px);
     }
     100% {
-        transform: translateX(0px);
+        transform: translateX(0);
     }
 }
 

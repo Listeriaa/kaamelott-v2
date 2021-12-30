@@ -14,19 +14,15 @@ const questions = {
  
         const {character, wrongone, wrongtwo} = quote;
 
-        
         let randomAnswers = questions.randomizeAnswers([character, wrongone, wrongtwo]);
   
-       
         let inputElements = newQuestionElement.querySelectorAll("input");
         let labelElements = newQuestionElement.querySelectorAll("label");
-        console.log(inputElements);
-        console.log(labelElements);
 
         let questionNumberString = "question" + questionNumber;
 
         randomAnswers.forEach((item, id) => {
-
+            
             inputElements[id].name = questionNumberString;
             inputElements[id].value = item.id;
             inputElements[id].id = `${questionNumberString}radio${item.id}`;
@@ -37,7 +33,7 @@ const questions = {
 
 
         newQuestionElement.id = questionNumber;
-        newQuestionElement.querySelector('.question-sentence').textContent = character.sentence;
+        newQuestionElement.querySelector('.question-sentence').textContent = quote.sentence;
         newQuestionElement.querySelector('.question-title').textContent = "Question n°"+questionNumber;
 
         if(newQuestionElement.id !== "1"){
@@ -57,6 +53,7 @@ const questions = {
 
     },
 
+
     handleClickButton: function(evt){
 
         evt.preventDefault();
@@ -66,17 +63,19 @@ const questions = {
         
         const NextQuestionElement = questionElement.nextSibling;
         
+        let noAnswer =  (message) => {
+            buttonElement.textContent = message;
+            buttonElement.classList.toggle("warning");
+            questionElement.classList.toggle("echec");
+        }
+
         //si aucune réponse n'a été sélectionnée
         if(questions.getInputValue(questionElement) === null){
 
-            buttonElement.textContent = "Choisissez une réponse!";
-            buttonElement.classList.toggle("warning");
-            questionElement.classList.toggle("echec");
+            noAnswer("Choisissez une réponse!");
 
             setTimeout(function() {
-                buttonElement.textContent = "Validez votre réponse";
-                buttonElement.classList.toggle("warning");
-                questionElement.classList.toggle("echec");
+                noAnswer("Validez votre réponse");
 
             }, 1500)
         
@@ -163,8 +162,6 @@ const questions = {
     },
 
     randomizeAnswers:function(array){
-        //je crée un tableau vide pour récupérer les id de chaque réponse
-        let idArray = [];
 
         // Durstenfeld shuffle 
         for (let i = array.length - 1; i > 0; i--) {
