@@ -5,13 +5,10 @@ const game = {
 
     checkAnswer: function(question, answer){
         //je veux comparer la réponse au tableau de bonnes réponses
-        console.log('question numero',question);
-        console.log('bonne reponse :',game.goodAnswers[question - 1]);
-        console.log(' reponse :',answer);
+
 
        if(game.goodAnswers[question - 1] == answer){
 
-            game.points++;
            return true;
 
        } else {

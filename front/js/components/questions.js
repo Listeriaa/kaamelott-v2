@@ -37,7 +37,8 @@ const questions = {
         newQuestionElement.querySelector('.question-title').textContent = "Question n°"+questionNumber;
 
         if(newQuestionElement.id !== "1"){
-            newQuestionElement.classList.add("display-none");
+            questions.toggleDisplayNone(newQuestionElement);
+
         }
 
         newQuestionElement.querySelector('.question-validate').addEventListener("click", questions.handleClickButton);
@@ -85,8 +86,10 @@ const questions = {
 
             let inputValue = questions.getInputValue(questionElement);
             let answer = game.checkAnswer(questionName, inputValue);
-
+            console.log("points", game.points);
+            console.log("answer", answer);
             if (game.checkIfLastQuestion(questionName)){
+
                 game.removeQuestionElement();
                 questions.addModal();
 
@@ -102,19 +105,25 @@ const questions = {
                 game.createGoodAnswers(game.goodAnswers);
 
             } else{
+
                 answer ? null : questionElement.closest('.question-block').classList.add('echec');
+                let newButton = document.createElement("button");
+
                 if (answer){
-                    buttonElement.textContent = "Bravo! Cliquez pour la question suivante.";
-                    buttonElement.classList.add('win');
+                    game.points ++;
+                    newButton.textContent = "Bravo! Cliquez pour la question suivante.";
+                    newButton.classList.add('win');
                 } else {
-                    buttonElement.textContent = "Prochaine question";
-                    buttonElement.classList.add('warning');
+                    newButton.textContent = "Dommage! Cliquez pour la question suivante.";
+                    newButton.classList.add('warning');
 
                 }
                 questions.showGoodAnswer(questionElement, questionName);
 
+                questionElement.replaceChild(newButton, buttonElement);
 
-                buttonElement.addEventListener('click', (() => {
+                newButton.addEventListener('click', ((ev) => {
+                    ev.preventDefault();
                     questions.toggleDisplayNone(questionElement);
 
                     questions.toggleDisplayNone(NextQuestionElement);
@@ -167,7 +176,7 @@ const questions = {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
-        } // eslint-disable-line no-param-reassign
+        }
 
         return array;
     },
