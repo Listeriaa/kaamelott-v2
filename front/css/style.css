@@ -91,7 +91,9 @@ label{
 
 .question-block input[type='radio']:checked {
     border: 6px solid black;
-  }
+}
+
+
 .proposal {
     text-align: center;
     
@@ -120,11 +122,11 @@ form button:hover,
     background-color: rgb(19, 19, 19);
     color:#fff;
 }
-.warning:hover{
+.b-lost:hover{
     background-color: rgb(236, 14, 14);
     color:#fff; 
 }
-.win:hover{
+.b-won:hover{
     background-color: rgb(43, 134, 0);
     color:#fff;
 }
@@ -173,7 +175,6 @@ form button:hover,
 .echec {
     animation: echec 0.3s ease-in-out;
 }
-
 
 @keyframes echec {
     0% {

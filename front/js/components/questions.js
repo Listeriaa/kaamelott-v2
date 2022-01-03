@@ -58,12 +58,21 @@ const questions = {
     handleClickButton: function(evt){
 
         evt.preventDefault();
+
         const buttonElement = evt.currentTarget;
 
         const questionElement = buttonElement.closest(".question-block");
         
         const NextQuestionElement = questionElement.nextSibling;
+
+        const questionName = questionElement.id;
+
+        const modal = document.querySelector(".modal");
         
+        const input = questionElement.querySelector('input:checked');
+
+        console.log(modal);
+
         let noAnswer =  (message) => {
             buttonElement.textContent = message;
             buttonElement.classList.toggle("warning");
@@ -71,7 +80,7 @@ const questions = {
         }
 
         //si aucune réponse n'a été sélectionnée
-        if(questions.getInputValue(questionElement) === null){
+        if(input === null){
 
             noAnswer("Choisissez une réponse!");
 
@@ -81,25 +90,25 @@ const questions = {
             }, 1500)
         
         } else {
+            const inputValue = input.value;
 
-            let questionName = questionElement.id;
 
-            let inputValue = questions.getInputValue(questionElement);
-            let answer = game.checkAnswer(questionName, inputValue);
+            const answer = game.checkAnswer(questionName, inputValue);
+
             console.log("points", game.points);
             console.log("answer", answer);
+
             if (game.checkIfLastQuestion(questionName)){
 
                 game.removeQuestionElement();
                 questions.addModal();
 
-                let modal = document.querySelector(".modal p");
-                let title = document.querySelector(".modal h2");
-                let results = document.querySelector(".results");
-                let button = document.querySelector(".reload");
+                let text = document.querySelector(".modal p");
+                let title = modal.querySelector(".modal h2");
+                let button = modal.querySelector(".reload");
 
-                modal.textContent = game.addComment(game.points);
-                title.textContent = "Votre score : " + game.points + "/10";
+                text.textContent = game.addComment(game.points);
+                title.textContent = `Votre score : ${game.points}/10`;
                 button.textContent = "Je rejoue!";
 
                 game.createGoodAnswers(game.goodAnswers);
@@ -108,14 +117,19 @@ const questions = {
 
                 answer ? null : questionElement.closest('.question-block').classList.add('echec');
                 let newButton = document.createElement("button");
-
+                console.log(input);
                 if (answer){
                     game.points ++;
                     newButton.textContent = "Bravo! Cliquez pour la question suivante.";
-                    newButton.classList.add('win');
+                    newButton.classList.add('b-won');
+                    input.style.border = "6px solid rgb(43, 134, 0)";
+
                 } else {
                     newButton.textContent = "Dommage! Cliquez pour la question suivante.";
-                    newButton.classList.add('warning');
+                    newButton.classList.add('b-lost');
+                    input.style.border = "6px solid rgb(255,0, 0)";
+
+
 
                 }
                 questions.showGoodAnswer(questionElement, questionName);
@@ -153,21 +167,6 @@ const questions = {
 
             }
         };
-    },
-
-    getInputValue: function(element){
-
-        const inputGroup = element.getElementsByTagName("input");
-
-        let inputValue = null;
-
-        for(input of inputGroup){
-
-            if (input.checked){
-                inputValue = input.value;
-            } 
-        }
-        return inputValue;
     },
 
     randomizeAnswers:function(array){
