@@ -115,24 +115,37 @@ const questions = {
 
             } else{
 
-                answer ? null : questionElement.closest('.question-block').classList.add('echec');
-                let newButton = document.createElement("button");
-                console.log(input);
-                if (answer){
-                    game.points ++;
-                    newButton.textContent = "Bravo! Cliquez pour la question suivante.";
-                    newButton.classList.add('b-won');
-                    input.style.border = "6px solid rgb(43, 134, 0)";
+                let handleAnswer = (message, classe, color) => {
+                    const inputs = questionElement.querySelectorAll('input');
 
-                } else {
-                    newButton.textContent = "Dommage! Cliquez pour la question suivante.";
-                    newButton.classList.add('b-lost');
-                    input.style.border = "6px solid rgb(255,0, 0)";
+                    newButton.textContent = message;
+                    newButton.classList.add(classe);
+                    input.style.border = `6px solid ${color}`;
 
+                    inputs.forEach(item => {
+                        item.closest('.proposal').style.fontWeight="800"; 
 
+                        if (color === "#178617") {
+                            item.closest('.proposal').style.color = item.checked ? "#178617" : "#ff0000";
+                        } else {
+                            item.closest('.proposal').style.color = item.checked ? "#ff0000" : "#178617";
+
+                        }
+                    })
 
                 }
-                questions.showGoodAnswer(questionElement, questionName);
+                
+                let newButton = document.createElement("button");
+
+                if (answer){
+                    game.points ++;
+                    handleAnswer('Bravo! Cliquez pour la question suivante.', 'b-won', '#178617');
+
+
+                } else {
+                    handleAnswer('Dommage! Cliquez pour la question suivante.', 'b-lost', '#ff0000');
+
+                }
 
                 questionElement.replaceChild(newButton, buttonElement);
 
@@ -149,25 +162,7 @@ const questions = {
         }
         
     },
-    showGoodAnswer:function(element, questionName){
-        console.log(game.goodAnswers);
 
-        let inputArray = element.getElementsByTagName("input");
-        for (element of inputArray) {
-            let inputValue = element.value;
-
-            let response = game.checkAnswer(questionName, inputValue);
-            if (response == true){
-                element.closest('div').style.color="#178617";
-                element.closest('div').style.fontWeight="800";
-
-            } else {
-                element.closest('div').style.color="#ec0e0e";
-                element.closest('div').style.fontWeight="800";
-
-            }
-        };
-    },
 
     randomizeAnswers:function(array){
 

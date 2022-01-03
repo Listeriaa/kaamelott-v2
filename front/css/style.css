@@ -85,7 +85,7 @@ label{
     height: 16px;
   
     border: 2px solid #999;
-    transition: 0.2s all linear;
+    transition: 0.1s all linear;
 
 }
 
@@ -123,11 +123,11 @@ form button:hover,
     color:#fff;
 }
 .b-lost:hover{
-    background-color: rgb(236, 14, 14);
+    background-color: #ff0000;
     color:#fff; 
 }
 .b-won:hover{
-    background-color: rgb(43, 134, 0);
+    background-color: #00ac09;
     color:#fff;
 }
 .is-hidden, 
