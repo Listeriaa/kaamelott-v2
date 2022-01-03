@@ -58,6 +58,7 @@ const questions = {
     handleClickButton: function(evt){
 
         evt.preventDefault();
+        game.createGoodAnswers(game.quotes);
 
         const buttonElement = evt.currentTarget;
 
@@ -68,6 +69,8 @@ const questions = {
         const questionName = questionElement.id;
 
         const modal = document.querySelector(".modal");
+
+        const mainContainer = document.querySelector('.main-container');
         
         const input = questionElement.querySelector('input:checked');
 
@@ -101,7 +104,7 @@ const questions = {
             if (game.checkIfLastQuestion(questionName)){
 
                 game.removeQuestionElement();
-                questions.addModal();
+                questions.addModal(modal, mainContainer);
 
                 let text = document.querySelector(".modal p");
                 let title = modal.querySelector(".modal h2");
@@ -111,7 +114,7 @@ const questions = {
                 title.textContent = `Votre score : ${game.points}/10`;
                 button.textContent = "Je rejoue!";
 
-                game.createGoodAnswers(game.goodAnswers);
+                game.createGoodAnswers(game.quotes);
 
             } else{
 
@@ -155,12 +158,8 @@ const questions = {
 
                     questions.toggleDisplayNone(NextQuestionElement);
                 }));
-
-
-
             }; 
         }
-        
     },
 
 
@@ -175,11 +174,9 @@ const questions = {
         return array;
     },
 
-    addModal:function(){
-        let modal = document.querySelector(".modal");
+    addModal:function(modal, mainContainer){
         modal.classList.toggle("is-hidden");
 
-        let mainContainer = document.querySelector('.main-container');
         mainContainer.classList.toggle("is-blurred");
 
     },
