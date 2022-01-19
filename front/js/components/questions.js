@@ -58,7 +58,6 @@ const questions = {
     handleClickButton: function(evt){
 
         evt.preventDefault();
-        game.createGoodAnswers(game.quotes);
 
         const buttonElement = evt.currentTarget;
 
