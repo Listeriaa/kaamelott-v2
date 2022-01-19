@@ -32,9 +32,9 @@ class Cors
         ];
         $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
-        // if (!in_array($origin, $this->allowOrigin) || empty($origin)) {
-        //     return new Response('Forbidden', 403);
-        // }
+        if (!in_array($origin, $this->allowOrigin) || empty($origin)) {
+            return new Response('Forbidden', 403);
+        }
         $response
              ->header('Access-Control-Allow-Origin', '*')
             ->header('Access-Control-Allow-Methods', 'GET')
