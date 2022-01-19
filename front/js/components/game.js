@@ -77,8 +77,8 @@ const game = {
     },
     reloadGame: function(){
  
-        game.removeQuestionElement(".form-quizz", ".question-block");
-        game.removeQuestionElement(".goodanswers", ".goodanswers div");
+        game.removeElements(".form-quizz", ".question-block");
+        game.removeElements(".goodanswers", ".goodanswers div");
         game.points = 0;
     }, 
 
