@@ -103,7 +103,8 @@ const questions = {
 
             if (game.checkIfLastQuestion(questionName)){
 
-                game.removeQuestionElement();
+                game.removeElements(".form-quizz", ".question-block");
+
                 questions.addModal(modal, mainContainer);
 
                 let text = document.querySelector(".modal p");
