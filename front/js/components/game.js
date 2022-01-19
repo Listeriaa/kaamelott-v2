@@ -1,15 +1,14 @@
 const game = {
     points:0,
     goodAnswers: [],
- 
+    quotes : [],
 
     checkAnswer: function(question, answer){
         //je veux comparer la réponse au tableau de bonnes réponses
-       let goodAnswer =  game.goodAnswers[question].character.id;
-       console.log(goodAnswer);
-       if(goodAnswer == answer){
 
-            game.points++;
+
+       if(game.goodAnswers[question - 1] == answer){
+
            return true;
 
        } else {
@@ -52,27 +51,29 @@ const game = {
     },
     /**
      * 
-     * @param {*} array 
+     * @param {quotes} array 
      */
-    createGoodAnswers:function(array){
+    createGoodAnswers:function(quotes){
         let results = document.querySelector(".goodanswers");
-
-        array.forEach(element => {
+        console.log(quotes);
+        quotes.forEach(quote => {
             //création de la div pour chaque réponse
             let divElement =  document.createElement("div");
             results.prepend(divElement);
             //remplissage avec le texte de la réplique
             let sentence = document.createElement("p");
-            sentence.textContent = element.sentence;
+            sentence.textContent = quote.sentence;
             divElement.append(sentence);
 
             //remplissage avec le nom de la bonne réponse et mise en forme
             let response = document.createElement("p");
-            response.textContent = element.character.name;
+            response.textContent = quote.character.name;
             response.style.color = "#178617";
             response.style.paddingTop = "0px";
             response.style.fontWeight = "bolder";
             divElement.appendChild(response);
+
+            console.log(divElement);
         });
     },
     reloadGame: function(){

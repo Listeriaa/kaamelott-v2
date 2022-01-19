@@ -75,10 +75,26 @@ label{
 }
 .question-block input[type='radio'] {
     transform: scale(1.2);
-    
-   
+    display:block;
+    margin : 5px auto;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+  
+    border: 2px solid #999;
+    transition: 0.1s all linear;
+
 }
-.input {
+
+.question-block input[type='radio']:checked {
+    border: 6px solid black;
+}
+
+
+.proposal {
     text-align: center;
     
     padding:15px;
@@ -106,12 +122,12 @@ form button:hover,
     background-color: rgb(19, 19, 19);
     color:#fff;
 }
-.warning:hover{
-    background-color: rgb(236, 14, 14);
+.b-lost:hover{
+    background-color: #ff0000;
     color:#fff; 
 }
-.win:hover{
-    background-color: rgb(43, 134, 0);
+.b-won:hover{
+    background-color: #00ac09;
     color:#fff;
 }
 .is-hidden, 
@@ -160,10 +176,9 @@ form button:hover,
     animation: echec 0.3s ease-in-out;
 }
 
-
 @keyframes echec {
     0% {
-        transform: translateX(0px);
+        transform: translateX(0);
     }
     33% {
         transform: translateX(5px);
@@ -172,7 +187,7 @@ form button:hover,
         transform: translateX(-5px);
     }
     100% {
-        transform: translateX(0px);
+        transform: translateX(0);
     }
 }
 

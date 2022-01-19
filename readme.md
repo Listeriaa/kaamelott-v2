@@ -42,6 +42,8 @@ A terme, j'aimerais avoir un fichier son de la réplique qui puisse etre joué a
 - Juillet : J'ai retravaillé l'affichage des réponses à chaque soumission de réponse.
 - Juillet : J'ai amélioré le random des propositions de réponses car je n'étais pas satisfaite de ma première solution.
 
+- Décembre 2021 : j'ai retravaillé le JS, notamment en optimisant mon code (forEach, map, factorisation). Encore du travail à faire, ceci dit, il y a encore des choses à améliorer.
+
 **A faire**
 
 - Ajout des photos des personnages.

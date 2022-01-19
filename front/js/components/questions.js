@@ -1,58 +1,52 @@
+
 const questions = {
     
 
-    createQuestionElement: function(questionNumber, sentence, right, wrongOne, wrongTwo){
+    createQuestionElement: function(questionNumber, quote){
+
+        const formQuizz = document.querySelector(".form-quizz");
+
         const newQuestionElement  = document.getElementById('empty-question')
                                             .content
                                             .cloneNode(true)
                                             .querySelector('.question-block');
 
-        //cette fonction me permet de mélanger l'ordre de la bonne réponse (qui par défaut, arrive en premier)
-        let answers = [right, wrongOne, wrongTwo];
-        
-        let randomAnswers = questions.randomizeAnswers(answers);
-        //le tableau obtenu est de la forme [[id, nom][id, nom][id, nom]]
-        //Je récupère les input et les label
-       
-        let inputElements = newQuestionElement.querySelectorAll(".input input");
-        let labelElements = newQuestionElement.querySelectorAll(".input label");
+ 
+        const {character, wrongone, wrongtwo} = quote;
 
-        let $questionNumberString = "question" + questionNumber;
-        //je veux attribuer sur les input en name le numéro de la question, et en value, le nom du personnage
-        //je veux attribuer sur les label en for le numéro de la question, et en textContent le nom du personnage.
-        for(let i=0 ; i<=2 ; i++){
-            inputElements[i].setAttribute('name', $questionNumberString);
-            inputElements[i].setAttribute('value', randomAnswers[i][0]);
-            inputElements[i].setAttribute('id', $questionNumberString + "radio" + randomAnswers[i][0]);
-            labelElements[i].setAttribute('for', $questionNumberString + "radio" + randomAnswers[i][0]);
-            labelElements[i].textContent= randomAnswers[i][1];
+        let randomAnswers = questions.randomizeAnswers([character, wrongone, wrongtwo]);
+  
+        let inputElements = newQuestionElement.querySelectorAll("input");
+        let labelElements = newQuestionElement.querySelectorAll("label");
 
-        }
+        let questionNumberString = "question" + questionNumber;
 
-        newQuestionElement.dataset.id = questionNumber;
-        newQuestionElement.querySelector('.question-sentence').textContent = sentence;
+        randomAnswers.forEach((item, id) => {
+            
+            inputElements[id].name = questionNumberString;
+            inputElements[id].value = item.id;
+            inputElements[id].id = `${questionNumberString}radio${item.id}`;
+            labelElements[id].setAttribute("for", `${questionNumberString}radio${item.id}`);
+            labelElements[id].textContent= item.name;
+
+        })
+
+
+        newQuestionElement.id = questionNumber;
+        newQuestionElement.querySelector('.question-sentence').textContent = quote.sentence;
         newQuestionElement.querySelector('.question-title').textContent = "Question n°"+questionNumber;
 
-        if(newQuestionElement.dataset.id !== "1"){
-            newQuestionElement.classList.add("display-none");
+        if(newQuestionElement.id !== "1"){
+            questions.toggleDisplayNone(newQuestionElement);
+
         }
-        questions.bindQuestionEvent(newQuestionElement);
-        questions.insertQuestionElements(newQuestionElement);
+
+        newQuestionElement.querySelector('.question-validate').addEventListener("click", questions.handleClickButton);
+
+        formQuizz.append(newQuestionElement);
+
     },
 
-    insertQuestionElements:function(questionElement){
-        let formQuizz = document.querySelector(".form-quizz");
-        formQuizz.append(questionElement);
-    },
-
-
-    bindQuestionEvent:function(questionElement){
-
-        const buttonElement = questionElement.querySelector(".question-validate");
-        
-        buttonElement.addEventListener("click", questions.handleClickButton);
-      
-    },
 
     toggleDisplayNone:function(element){
 
@@ -60,146 +54,129 @@ const questions = {
 
     },
 
+
     handleClickButton: function(evt){
 
         evt.preventDefault();
+        game.createGoodAnswers(game.quotes);
+
         const buttonElement = evt.currentTarget;
 
         const questionElement = buttonElement.closest(".question-block");
         
         const NextQuestionElement = questionElement.nextSibling;
-        
-        //si aucune réponse n'a été sélectionnée
-        if(questions.getInputValue(questionElement) === null){
 
-            buttonElement.textContent = "Choisissez une réponse!";
+        const questionName = questionElement.id;
+
+        const modal = document.querySelector(".modal");
+
+        const mainContainer = document.querySelector('.main-container');
+        
+        const input = questionElement.querySelector('input:checked');
+
+        console.log(modal);
+
+        let noAnswer =  (message) => {
+            buttonElement.textContent = message;
             buttonElement.classList.toggle("warning");
             questionElement.classList.toggle("echec");
+        }
+
+        //si aucune réponse n'a été sélectionnée
+        if(input === null){
+
+            noAnswer("Choisissez une réponse!");
 
             setTimeout(function() {
-                buttonElement.textContent = "Validez votre réponse";
-                buttonElement.classList.toggle("warning");
-                questionElement.classList.toggle("echec");
+                noAnswer("Validez votre réponse");
 
             }, 1500)
         
         } else {
+            const inputValue = input.value;
 
-            let questionName = questionElement.dataset.id;
 
-            let inputValue = questions.getInputValue(questionElement);
+            const answer = game.checkAnswer(questionName, inputValue);
 
-            let answer = game.checkAnswer(questionName, inputValue);
+            console.log("points", game.points);
+            console.log("answer", answer);
 
             if (game.checkIfLastQuestion(questionName)){
+
                 game.removeQuestionElement();
-                questions.addModal();
+                questions.addModal(modal, mainContainer);
 
-                let modal = document.querySelector(".modal p");
-                let title = document.querySelector(".modal h2");
-                let results = document.querySelector(".results");
-                let button = document.querySelector(".reload");
+                let text = document.querySelector(".modal p");
+                let title = modal.querySelector(".modal h2");
+                let button = modal.querySelector(".reload");
 
-                modal.textContent = game.addComment(game.points);
-                title.textContent = "Votre score : " + game.points + "/10";
+                text.textContent = game.addComment(game.points);
+                title.textContent = `Votre score : ${game.points}/10`;
                 button.textContent = "Je rejoue!";
 
-                game.createGoodAnswers(game.goodAnswers);
+                game.createGoodAnswers(game.quotes);
 
             } else{
-                answer ? null : questionElement.closest('.question-block').classList.add('echec');
-                if (answer){
-                    buttonElement.textContent = "Bravo! Cliquez pour la question suivante.";
-                    buttonElement.classList.add('win');
-                } else {
-                    buttonElement.textContent = "Prochaine question";
-                    buttonElement.classList.add('warning');
+
+                let handleAnswer = (message, classe, color) => {
+                    const inputs = questionElement.querySelectorAll('input');
+
+                    newButton.textContent = message;
+                    newButton.classList.add(classe);
+                    input.style.border = `6px solid ${color}`;
+
+                    inputs.forEach(item => {
+                        item.closest('.proposal').style.fontWeight="800"; 
+
+                        if (color === "#178617") {
+                            item.closest('.proposal').style.color = item.checked ? "#178617" : "#ff0000";
+                        } else {
+                            item.closest('.proposal').style.color = item.checked ? "#ff0000" : "#178617";
+
+                        }
+                    })
 
                 }
-                questions.showGoodAnswer(questionElement, questionName);
+                
+                let newButton = document.createElement("button");
+
+                if (answer){
+                    game.points ++;
+                    handleAnswer('Bravo! Cliquez pour la question suivante.', 'b-won', '#178617');
 
 
-                buttonElement.addEventListener('click', (() => {
+                } else {
+                    handleAnswer('Dommage! Cliquez pour la question suivante.', 'b-lost', '#ff0000');
+
+                }
+
+                questionElement.replaceChild(newButton, buttonElement);
+
+                newButton.addEventListener('click', ((ev) => {
+                    ev.preventDefault();
                     questions.toggleDisplayNone(questionElement);
 
                     questions.toggleDisplayNone(NextQuestionElement);
                 }));
-
-
-
             }; 
         }
-        
-    },
-    showGoodAnswer:function(element, questionName){
-        console.log(game.goodAnswers);
-
-        let inputArray = element.getElementsByTagName("input");
-        for (element of inputArray) {
-            let inputValue = element.value;
-
-            let response = game.checkAnswer(questionName, inputValue);
-            if (response == true){
-                element.closest('div').style.color="#178617";
-                element.closest('div').style.fontWeight="800";
-
-            } else {
-                element.closest('div').style.color="#ec0e0e";
-                element.closest('div').style.fontWeight="800";
-
-            }
-        };
     },
 
-    getInputValue: function(element){
-
-        const inputGroup = element.getElementsByTagName("input");
-
-        let inputValue = null;
-
-        for(input of inputGroup){
-
-            if (input.checked){
-                inputValue = input.value;
-            } 
-        }
-        return inputValue;
-    },
 
     randomizeAnswers:function(array){
-        //je crée un tableau vide pour récupérer les id de chaque réponse
-        
-        let idArray = [];
-        for (const character of array) {
-            idArray.push(character.id);
-        }
-        //Je mélange ces id avec la fonction reverse et random
-        for (let i = idArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [idArray[i], idArray[j]] = [idArray[j], idArray[i]];
-        } // eslint-disable-line no-param-reassign
-        //je crée un objet vide qui contiendra les id random avec les noms associés
-        let sortedArray=[];
-        //je remplis ce tableau avec les nom des personnages correspondants qui se trouvent dans la variable array
-        for (const idRandom of idArray) {
-            for (const character of array) {
-                
-                if(idRandom === character.id){
 
-                    sortedArray.push([idRandom, character.name]);
-                    
-                   break;
-                }
-            }
+        // Durstenfeld shuffle 
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
-        return sortedArray;
+
+        return array;
     },
 
-    addModal:function(){
-        let modal = document.querySelector(".modal");
+    addModal:function(modal, mainContainer){
         modal.classList.toggle("is-hidden");
 
-        let mainContainer = document.querySelector('.main-container');
         mainContainer.classList.toggle("is-blurred");
 
     },
