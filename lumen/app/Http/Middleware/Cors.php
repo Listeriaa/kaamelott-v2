@@ -26,17 +26,17 @@ class Cors
         $this->allowOrigin = [
             'http://localhost',
             'http://127.0.0.1',
-            'http://localhost:8080',
             'http://127.0.0.1:8080',
             'https://kaamelott.laetitia-dev.com',
         ];
         $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
-
+        //var_dump($origin);
         if (!in_array($origin, $this->allowOrigin) || empty($origin)) {
-            return new Response('Forbidden', 403);
+            
+           return new Response('accès interdit', 403);
         }
         $response
-             ->header('Access-Control-Allow-Origin', '*')
+             ->header('Access-Control-Allow-Origin', $origin)
             ->header('Access-Control-Allow-Methods', 'GET')
             ->header('Access-Control-Allow-Credentials', 'true')
             ->header('Access-Control-Allow-Headers', 'Content-Type');
