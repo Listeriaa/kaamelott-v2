@@ -59,7 +59,7 @@ const game = {
         quotes.forEach(quote => {
             //création de la div pour chaque réponse
             let divElement =  document.createElement("div");
-            results.prepend(divElement);
+            results.appendChild(divElement);
             //remplissage avec le texte de la réplique
             let sentence = document.createElement("p");
             sentence.textContent = quote.sentence;
@@ -73,21 +73,21 @@ const game = {
             response.style.fontWeight = "bolder";
             divElement.appendChild(response);
 
-            console.log(divElement);
         });
     },
     reloadGame: function(){
  
-        game.removeQuestionElement();
+        game.removeQuestionElement(".form-quizz", ".question-block");
+        game.removeQuestionElement(".goodanswers", ".goodanswers div");
         game.points = 0;
     }, 
 
-    removeQuestionElement: function(){
+    removeElements: function(parent, child){
 
-        let questionElements = document.querySelectorAll(".question-block");
-        let formElement = document.querySelector(".form-quizz");
-        questionElements.forEach(element => { 
-            formElement.removeChild(element);            
+        let childElements = document.querySelectorAll(child);
+        let parentElement = document.querySelector(parent);
+        childElements.forEach(element => { 
+            parentElement.removeChild(element);            
         });
     
     }
